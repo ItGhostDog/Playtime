@@ -1,0 +1,22 @@
+command /playtime [<offline player>]:
+	trigger:
+		if arg-1 is not set:
+			send "&7[&6HatredFly&7] You played for &8%{hours.%player's uuid%}% &7hours &8%{mins.%player's uuid%}% &7minutes and &8%{secs.%player's uuid%}% &7seconds"
+		if arg-1 is set:
+			send "&7[&6HatredFly&7] &8%arg 1% &7played for &8%{hours.%arg-1's uuid%}% &7hours &8%{mins.%arg-1's uuid%}% &7minutes and &8%{secs.%arg-1's uuid%}% &7seconds"
+on join:
+	if {hours.%player's uuid%} is not set:
+		set {hours.%player's uuid%} to 0
+	if {mins.%player's uuid%} is not set:
+		set {mins.%player's uuid%} to 0
+	if {secs.%player's uuid%} is not set:
+		set {secs.%player's uuid%} to 0
+	while player is online:
+		add 1 to {secs.%player's uuid%}
+		if {secs.%player's uuid%} >= 60:
+			add 1 to {mins.%player's uuid%}
+			remove 60 from {secs.%player's uuid%}
+		if {mins.%player's uuid%} >= 60:
+			add 1 to {hours.%player's uuid%}
+			remove 60 from {mins.%player's uuid%}
+		wait 1 seconds
